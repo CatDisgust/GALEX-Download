@@ -1,21 +1,41 @@
-# GALEX 数据下载器
+# GALEX下载项目
 
 ## 项目简介
-GALEX数据下载器是一个Python项目，用于自动从AWS S3桶下载GALEX（Galaxy Evolution Explorer）数据集。此项目旨在帮助研究人员和数据科学家方便地获取天文数据，以便进行进一步的分析和研究。
+这个项目提供了从GALEX（银河演化探测器）数据集下载数据的工具。它使用了Astroquery库来查询和下载特定天空区域内的天文数据。
 
-## 功能
-- 从指定的AWS S3桶下载GALEX数据。
-- 支持下载特定文件或整个数据集。
-- 自动保存下载的数据到本地指定路径。
+## 安装步骤
+要安装必要的依赖项，请在项目根目录下运行以下命令：
+```shell
+    pip install -r requirements.txt
+   ```
 
-## 安装
-在开始之前，确保您的系统已经安装了Python和pip。然后，使用以下命令安装必要的依赖：
 
-```bash
-pip install -r requirements.txt
+
+## 使用方法
+使用以下命令格式运行脚本：
+    ```shell 
+    python download_galex.py <coordinate> <radius> <download_path>
+    ```
+
+- `<coordinate>`: 搜索的天空坐标（赤经和赤纬），例如 "10.6840 -41.2690"。
+- `<radius>`: 搜索半径，单位为度，例如 "0.1 deg"。
+- `<download_path>`: 数据下载的目标文件夹路径。
+
+例如，运行以下命令来下载数据：
+```shell
+python download_galex.py "10.6840 -41.2690" "0.1 deg" "./galex_data"
 ```
 
-## 配置
-- 在 config.py 中设置AWS S3桶的信息，包括桶名、路径和区域。
-- 在 utils.py 中设置AWS安全凭证
-- 设置本地保存路径
+
+## 注意事项
+- 确保在运行脚本之前已安装所有依赖。
+- 根据网络状况和数据量，下载过程可能需要一定的时间。
+
+## 已知问题
+（在这里列出项目的任何已知问题或限制。如果没有已知问题，可以省略此部分。）
+
+## 许可证
+（如果适用，添加许可证信息。）
+
+## 联系方式
+（提供项目维护者的联系方式，如电子邮件地址。）# GALEX-Download
