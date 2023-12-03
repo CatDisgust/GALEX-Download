@@ -8,6 +8,7 @@ def search_and_download_galex_data(coordinate, radius, download_path):
     try:
         sky_coord = SkyCoord(coordinate, unit=(u.deg, u.deg), frame='icrs')
 
+        # 查询指定区域的观测数据
         obs_table = Observations.query_region(sky_coord, radius=radius)
 
         print(f"Found {len(obs_table)} observations.")
@@ -18,19 +19,19 @@ def search_and_download_galex_data(coordinate, radius, download_path):
             if len(galex_obs) > 0:
                 data_products = Observations.get_product_list(galex_obs)
 
-                # 打印出找到的数据产品信息
-                print("Available data products:")
-                print(data_products)
+                # 过滤NUV和FUV数据产品
+                nuv_fuv_products = data_products[
+                    [any(substring in str(product['description']).upper() for substring in ['NUV', 'FUV'])
+                     for product in data_products]
+                ]
 
-                # 筛选出数据产品
-                filtered_products = Observations.filter_products(data_products)
-
-                if len(filtered_products) > 0:
-                    download_info = Observations.download_products(filtered_products,
+                if len(nuv_fuv_products) > 0:
+                    # 下载数据产品
+                    download_info = Observations.download_products(nuv_fuv_products,
                                                                    download_dir=download_path)
-                    print(f"Downloaded data to {download_path}")
+                    print(f"Downloaded NUV and FUV data to {download_path}")
                 else:
-                    print("No suitable data products found.")
+                    print("No suitable NUV or FUV data products found.")
             else:
                 print("No GALEX observations found within the specified region.")
         else:
