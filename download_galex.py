@@ -53,6 +53,5 @@ def main():
 
     search_and_download_galex_data(coordinate, radius, download_path)
 
-
 if __name__ == "__main__":
     main()
